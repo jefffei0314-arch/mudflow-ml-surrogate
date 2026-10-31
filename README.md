@@ -101,3 +101,6 @@ Tan, J. F., Tion, P. H., and Lau, S. C. (2025). *Parametric Sensitivity Analyses
 ## 10. AI Assistance Disclosure
 
 Generative AI assistance was used during Python code development, debugging, documentation, and report drafting. The implementation and results were reviewed by the author.
+
+## 11. Conclusion and Reflection
+The main contribution of this project is the application and evaluation of machine learning surrogate models using CFD mudflow simulation data from my previous research. By comparing Polynomial Ridge Regression and Random Forest Regression under held-out yield-stress conditions, the study identifies differences in predictive accuracy and highlights the difficulty of reproducing sharp mudflow fronts.
