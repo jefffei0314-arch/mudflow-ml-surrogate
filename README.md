@@ -263,6 +263,22 @@ This example demonstrates both ML inference and pointwise comparison against the
 
 **Note:** If `validation_summary.csv` is unavailable, run the main training script first to generate it. Numerical reference values and prediction errors are only reported for coordinates within the available reference profile.
 
+## 7. Results
+
+### 7.1 Held-Out Testing Performance
+
+| Yield stress | Model | R² | RMSE (m) | MAE (m) |
+|---|---|---:|---:|---:|
+| 50 Pa | Polynomial Ridge | 0.7657 | 0.4315 | 0.3408 |
+| 50 Pa | Random Forest | 0.9711 | 0.1514 | 0.0440 |
+| 500 Pa | Polynomial Ridge | 0.9024 | 0.4569 | 0.3044 |
+| 500 Pa | Random Forest | 0.7053 | 0.7942 | 0.4382 |
+| 2000 Pa | Polynomial Ridge | 0.8917 | 0.8915 | 0.7171 |
+| 2000 Pa | Random Forest | 0.7454 | 1.3665 | 0.9409 |
+
+Random Forest achieved better performance at 50 Pa, whereas Polynomial Ridge obtained lower prediction errors at 500 and 2000 Pa.
+
+However, the predicted flow-depth profiles reveal differences that are not fully represented by the statistical metrics.
 
 ### 7.2 Flow-Depth Profile Comparison
 
