@@ -288,7 +288,7 @@ Random Forest also tended to predict positive depths beyond the numerical flow f
 
 The numerical model includes a yield-stress resistance formulation that influences flow propagation, but neither ML model explicitly incorporates the governing equations.
 
-Therefore, lower overall prediction errors do not necessarily indicate better reproduction of the physical mudflow profile.
+Therefore, relatively low overall prediction errors do not necessarily indicate accurate reproduction of the physical mudflow profile, particularly near the flow front.
 
 ### 7.3 Figures
 
