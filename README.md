@@ -311,9 +311,9 @@ The machine learning implementation uses the scikit-learn library.
 
 ## 11. AI Assistance Disclosure
 
-ChatGPT (OpenAI) assisted with Python implementation, debugging, report drafting, documentation, and LaTeX formatting.
+ChatGPT (OpenAI) assisted with Python implementation, debugging and LaTeX formatting.
 
-The author provided the numerical simulation data, selected the research problem, ran the experiments, reviewed the results, and interpreted their engineering significance.
+The author provided the numerical simulation data, selected the research problem, ran the experiments, reviewed the results, drafted the report and interpreted their engineering significance.
 
 ## 12. Conclusion and Reflection
 
