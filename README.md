@@ -185,11 +185,14 @@ The validation results, including the selected hyperparameters, are stored in `M
 
 The full grid search is performed whenever the main script is executed.
 
+
 ## 6. Inference Demonstration
 
 The inference demonstration predicts mudflow depth at a user-specified spatial coordinate using previously validated hyperparameters.
 
-Run:
+### 6.1 Running the Inference
+
+Run the following command:
 
 ```bash
 python ML_Inference_Demo.py --stress 500 --x 610
@@ -200,28 +203,44 @@ Where:
 - `--stress 500` specifies the yield stress in Pa.
 - `--x 610` specifies the spatial coordinate in metres.
 
-The demonstration supports the three validated held-out yield-stress cases: **50, 500, and 2000 Pa**.
+Users can modify these inputs to perform predictions at different conditions.
 
-For each selected case, the corresponding yield-stress profile is excluded from training.
+**Supported yield stresses:** 50, 500, and 2000 Pa.
 
-The script reads the selected hyperparameters from:
+These three values correspond to the held-out experiments for which hyperparameter validation has been completed. Other yield stresses are not currently supported by this inference script because validated hyperparameter configurations are unavailable.
+
+**Spatial coordinates:** Users can specify different spatial locations using `--x`. However, predictions should preferably remain within the spatial range represented by the training dataset, as extrapolation beyond this range may be unreliable.
+
+For example:
+
+```bash
+python ML_Inference_Demo.py --stress 50 --x 300
+python ML_Inference_Demo.py --stress 2000 --x 1000
+```
+
+### 6.2 Inference Procedure
+
+For each selected yield stress, the corresponding numerical profile is excluded from training.
+
+The script retrieves the selected hyperparameters from:
 
 `ML_Results/Validation/validation_summary.csv`
 
-It then trains both models using those configurations and performs inference without repeating the grid search.
+Both models are then trained using the remaining eight yield-stress profiles (280,000 observations) and the previously validated configurations.
 
-### Example: 500 Pa at x = 610 m
+The script performs inference without repeating the computationally expensive grid search.
+
+### 6.3 Example: 500 Pa at x = 610 m
 
 | Model | Normalized depth (h/h0) | Predicted depth (m) |
 |---|---:|---:|
 | Polynomial Ridge | 0.122957 | 3.750178 |
 | Random Forest | 0.103177 | 3.146887 |
 
-These predictions demonstrate inference at a specified location within a held-out yield-stress profile.
-
-These results demonstrate how the trained models predict mudflow depth at a specified location. The overall prediction accuracy of both models is evaluated separately using R², RMSE, and MAE against the numerical simulation data.
+These results demonstrate how the models predict mudflow depth at a user-specified location for a held-out yield-stress case. Prediction accuracy is evaluated separately against the numerical simulation data using R², RMSE, and MAE.
 
 **Note:** If `validation_summary.csv` is unavailable, run the main training script first to generate it.
+
 
 ## 7. Results
 
