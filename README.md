@@ -5,7 +5,7 @@
 
 This project investigates the application of machine learning regression models to predict mudflow depth profiles under varying yield-stress conditions.
 
-The numerical simulation data originate from a depth-averaged mudflow model using Quadratic rheology, developed in previous research by Tan et al. (2025) [1]..
+The numerical simulation data originate from a depth-averaged mudflow model using Quadratic rheology, developed in previous research by Tan et al. (2025) [1].
 
 Two machine learning methods are compared:
 
