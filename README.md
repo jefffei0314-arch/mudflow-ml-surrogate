@@ -219,7 +219,7 @@ It then trains both models using those configurations and performs inference wit
 
 These predictions demonstrate inference at a specified location within a held-out yield-stress profile.
 
-They should not be interpreted as independent evidence of prediction accuracy without comparison against the numerical reference.
+These results demonstrate how the trained models predict mudflow depth at a specified location. The overall prediction accuracy of both models is evaluated separately using R², RMSE, and MAE against the numerical simulation data.
 
 **Note:** If `validation_summary.csv` is unavailable, run the main training script first to generate it.
 
