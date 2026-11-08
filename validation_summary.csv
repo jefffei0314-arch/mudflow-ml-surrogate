@@ -1,0 +1,7 @@
+yield_stress_Pa,model,validation_method,validation_RMSE_m,best_parameters
+50,Polynomial Ridge,GroupKFold (8 folds),0.6484882426291689,"{'poly__degree': 4, 'ridge__alpha': 1.0}"
+50,Random Forest,GroupKFold (8 folds),0.7675602659583193,"{'rf__max_depth': 12, 'rf__min_samples_leaf': 1, 'rf__n_estimators': 200}"
+500,Polynomial Ridge,GroupKFold (8 folds),0.6435919190656675,"{'poly__degree': 4, 'ridge__alpha': 10.0}"
+500,Random Forest,GroupKFold (8 folds),0.708766458020139,"{'rf__max_depth': 12, 'rf__min_samples_leaf': 1, 'rf__n_estimators': 200}"
+2000,Polynomial Ridge,GroupKFold (8 folds),0.8167724146725925,"{'poly__degree': 3, 'ridge__alpha': 100.0}"
+2000,Random Forest,GroupKFold (8 folds),0.8320584432986211,"{'rf__max_depth': 12, 'rf__min_samples_leaf': 1, 'rf__n_estimators': 100}"
