@@ -292,21 +292,37 @@ Therefore, relatively low overall prediction errors do not necessarily indicate 
 
 ### 7.3 Figures
 
-The repository includes six figures:
+The following figures compare the ML predictions against the numerical simulations at 180 s.
 
-**Flow-depth profile comparisons**
+#### Flow-Depth Profile Comparisons
 
-- `flow_profile_yieldstress_50.png`
-- `flow_profile_yieldstress_500.png`
-- `flow_profile_yieldstress_2000.png`
+**50 Pa**
 
-**Signed prediction errors**
+![Flow-depth profile comparison at 50 Pa](ML_Results/flow_profile_yieldstress_50.png)
 
-- `prediction_error_yieldstress_50.png`
-- `prediction_error_yieldstress_500.png`
-- `prediction_error_yieldstress_2000.png`
+**500 Pa**
 
-These figures compare the ML predictions against the numerical simulations at 180 s.
+![Flow-depth profile comparison at 500 Pa](ML_Results/flow_profile_yieldstress_500.png)
+
+**2000 Pa**
+
+![Flow-depth profile comparison at 2000 Pa](ML_Results/flow_profile_yieldstress_2000.png)
+
+#### Signed Prediction Errors
+
+**50 Pa**
+
+![Prediction error at 50 Pa](ML_Results/prediction_error_yieldstress_50.png)
+
+**500 Pa**
+
+![Prediction error at 500 Pa](ML_Results/prediction_error_yieldstress_500.png)
+
+**2000 Pa**
+
+![Prediction error at 2000 Pa](ML_Results/prediction_error_yieldstress_2000.png)
+
+The signed prediction errors are calculated as the difference between the ML-predicted and numerical flow depths. Positive values indicate overprediction, while negative values indicate underprediction.
 
 ## 8. Limitations
 
