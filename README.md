@@ -186,9 +186,10 @@ The validation results, including the selected hyperparameters, are stored in `M
 The full grid search is performed whenever the main script is executed.
 
 
+
 ## 6. Inference Demonstration
 
-The inference demonstration predicts mudflow depth at a user-specified spatial coordinate using previously validated hyperparameters.
+The inference demonstration predicts mudflow depth at a user-specified spatial coordinate using previously validated hyperparameters. When numerical simulation data are available, the predictions are also compared against the numerical reference.
 
 ### 6.1 Running the Inference
 
@@ -203,13 +204,11 @@ Where:
 - `--stress 500` specifies the yield stress in Pa.
 - `--x 610` specifies the spatial coordinate in metres.
 
-Users can modify these inputs to perform predictions at different conditions.
-
 **Supported yield stresses:** 50, 500, and 2000 Pa.
 
-These three values correspond to the held-out experiments for which hyperparameter validation has been completed. Other yield stresses are not currently supported by this inference script because validated hyperparameter configurations are unavailable.
+These values correspond to the three validated held-out experiments. Other yield stresses are not currently supported because validated hyperparameter configurations are unavailable.
 
-**Spatial coordinates:** Users can specify different spatial locations using `--x`. However, predictions should preferably remain within the spatial range represented by the training dataset, as extrapolation beyond this range may be unreliable.
+**Spatial coordinates:** Users can specify different locations using `--x`. However, predictions should preferably remain within the spatial range represented by the training dataset to avoid unreliable extrapolation.
 
 For example:
 
@@ -220,7 +219,7 @@ python ML_Inference_Demo.py --stress 2000 --x 1000
 
 ### 6.2 Inference Procedure
 
-For each selected yield stress, the corresponding numerical profile is excluded from training.
+For each selected yield stress, the corresponding numerical simulation profile is excluded from training.
 
 The script retrieves the selected hyperparameters from:
 
@@ -228,36 +227,42 @@ The script retrieves the selected hyperparameters from:
 
 Both models are then trained using the remaining eight yield-stress profiles (280,000 observations) and the previously validated configurations.
 
-The script performs inference without repeating the computationally expensive grid search.
+The models predict the normalized mudflow depth (h/h0), which is converted into physical depth using h0 = 30.5 m.
+
+The numerical reference depth is retrieved separately from the excluded profile. Linear interpolation is applied when the requested coordinate falls between numerical data points.
+
+The absolute and percentage prediction errors are calculated as:
+
+\[
+\text{Absolute Error} = |h_{\text{predicted}} - h_{\text{numerical}}|
+\]
+
+\[
+\text{Percentage Error} =
+\frac{|h_{\text{predicted}} - h_{\text{numerical}}|}
+{|h_{\text{numerical}}|}\times 100\%
+\]
+
+Percentage error is not reported when the numerical depth is zero.
+
+The numerical reference is used only for comparison and is not included in model training. The inference procedure does not repeat the computationally expensive hyperparameter grid search.
 
 ### 6.3 Example: 500 Pa at x = 610 m
 
-| Model | Normalized depth (h/h0) | Predicted depth (m) |
-|---|---:|---:|
-| Polynomial Ridge | 0.122957 | 3.750178 |
-| Random Forest | 0.103177 | 3.146887 |
+The following results were obtained using the validated models:
 
-These results demonstrate how the models predict mudflow depth at a user-specified location for a held-out yield-stress case. Prediction accuracy is evaluated separately against the numerical simulation data using R², RMSE, and MAE.
+| Method | Normalized depth (h/h0) | Depth (m) | Absolute error (m) | Percentage error (%) |
+|---|---:|---:|---:|---:|
+| Numerical Simulation | 0.117626 | 3.587579 | — | — |
+| Polynomial Ridge | 0.122957 | 3.750178 | 0.162599 | 4.53 |
+| Random Forest | 0.103177 | 3.146887 | 0.440692 | 12.28 |
 
-**Note:** If `validation_summary.csv` is unavailable, run the main training script first to generate it.
+At this location, Polynomial Ridge produces a prediction closer to the numerical simulation than Random Forest.
 
+This example demonstrates both ML inference and pointwise comparison against the numerical reference. The overall predictive performance is evaluated separately using R², RMSE, and MAE across the complete held-out profiles, as presented in Section 7.
 
-## 7. Results
+**Note:** If `validation_summary.csv` is unavailable, run the main training script first to generate it. Numerical reference values and prediction errors are only reported for coordinates within the available reference profile.
 
-### 7.1 Held-Out Testing Performance
-
-| Yield stress | Model | R² | RMSE (m) | MAE (m) |
-|---|---|---:|---:|---:|
-| 50 Pa | Polynomial Ridge | 0.7657 | 0.4315 | 0.3408 |
-| 50 Pa | Random Forest | 0.9711 | 0.1514 | 0.0440 |
-| 500 Pa | Polynomial Ridge | 0.9024 | 0.4569 | 0.3044 |
-| 500 Pa | Random Forest | 0.7053 | 0.7942 | 0.4382 |
-| 2000 Pa | Polynomial Ridge | 0.8917 | 0.8915 | 0.7171 |
-| 2000 Pa | Random Forest | 0.7454 | 1.3665 | 0.9409 |
-
-Random Forest achieved better performance at 50 Pa, whereas Polynomial Ridge obtained lower prediction errors at 500 and 2000 Pa.
-
-However, the predicted flow-depth profiles reveal differences that are not fully represented by the statistical metrics.
 
 ### 7.2 Flow-Depth Profile Comparison
 
