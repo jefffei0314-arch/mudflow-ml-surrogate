@@ -233,15 +233,15 @@ The numerical reference depth is retrieved separately from the excluded profile.
 
 The absolute and percentage prediction errors are calculated as:
 
-\[
-\text{Absolute Error} = |h_{\text{predicted}} - h_{\text{numerical}}|
-\]
+$$
+\text{Absolute Error} = \left|h_{\text{predicted}} - h_{\text{numerical}}\right|
+$$
 
-\[
+$$
 \text{Percentage Error} =
-\frac{|h_{\text{predicted}} - h_{\text{numerical}}|}
-{|h_{\text{numerical}}|}\times 100\%
-\]
+\frac{\left|h_{\text{predicted}} - h_{\text{numerical}}\right|}
+{\left|h_{\text{numerical}}\right|}\times 100\%
+$$
 
 Percentage error is not reported when the numerical depth is zero.
 
